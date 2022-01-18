@@ -1,5 +1,6 @@
 require 'middleman-core'
 require 'middleman-search/search-index-resource'
+require 'middleman-search/toc-resource'
 
 module Middleman
   class SearchExtension < Middleman::Extension
@@ -13,6 +14,21 @@ module Middleman
     option :lunr_dirs, [], 'Directories in which to look for custom lunr.js files'
 
     def manipulate_resource_list(resources)
+      array = []
+
+      resources.each do |r|
+        if r.markdown?
+          r.toc.children.each do |element_lvl1|
+            array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path + element_lvl1.href, r, r.text, element_lvl1)
+            
+            element_lvl1.children.each_with_index do |element_lvl2, id|
+              array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path + element_lvl2.href, r, r.text, element_lvl2)
+            end
+          end
+        end
+      end
+      
+      resources.concat array
       resources.push Middleman::Sitemap::SearchIndexResource.new(@app.sitemap, @options[:index_path], @options)
       resources
     end
