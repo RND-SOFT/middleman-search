@@ -2,6 +2,24 @@
 
 LunrJS-based search for Middleman.
 
+## Index by TOC
+
+The gem is forked from https://github.com/daniel-rikowski/middleman-search.
+
+This gem indexes content by page and by TOC of those pages. (more about TOC https://github.com/svenfuchs/middleman-toc). This allows you to get a more detailed answer for a search query.
+
+You may want to disable page content indexing. Add this code in your `config.rb`:
+```ruby
+activate :mdocs do
+  ...
+
+  enrich_metadata Regexp.new('/docs/.*(\.md)$') do |resource, _match|
+    resource.data[:index] = false
+  end
+  
+  ...
+end
+```
 ## Installation
 
 Add this line to your application's Gemfile:
