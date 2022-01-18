@@ -44,7 +44,7 @@ module Middleman
         @resource.data.title
       end
 
-      def render ;end
+      def render(opts = {}, locs = {}); end
     end
   end
 end
