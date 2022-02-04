@@ -19,10 +19,10 @@ module Middleman
       resources.each do |r|
         if r.markdown?
           r.toc.children.each do |element_lvl1|
-            array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path + element_lvl1.href, r, r.text, element_lvl1)
+            array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path, element_lvl1.href, r, r.text, element_lvl1)
             
             element_lvl1.children.each_with_index do |element_lvl2, id|
-              array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path + element_lvl2.href, r, r.text, element_lvl2)
+              array.push Middleman::Sitemap::TocResource.new(@app.sitemap, r.normalized_path, element_lvl2.href, r, r.text, element_lvl2)
             end
           end
         end
