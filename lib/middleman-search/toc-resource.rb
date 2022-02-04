@@ -3,11 +3,10 @@
 module Middleman
   module Sitemap
     class TocResource < ::Middleman::Sitemap::Resource
-      def initialize(store, path, anchor, resource, resource_text, toc_element)
+      def initialize(store, path, resource, resource_text, toc_element)
         @resource = resource
         @toc_element = toc_element
         @path = path
-        @anchor = anchor
         @text = resource_text
 
         super(store, path)
@@ -38,7 +37,7 @@ module Middleman
       end
 
       def url
-        "/#{@path}/#{@anchor}"
+        '/' + @path
       end
 
       def parent_title
